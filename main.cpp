@@ -8,10 +8,11 @@ struct Point{
     int x, y;
 };
 
-// Un punto global para sortear los puntos con referencia al primer punto usado en el método qsort()
+// Un punto global para ordenar los puntos con referencia al primer punto usado en el método qsort()
 Point p0;
 
 // Función utilizada para encontrar el punto superior en el stack
+// Complejidad en el tiempo: O(1)
 Point point_in_top(stack<Point> & S){
     Point p = S.top();
     S.pop();
@@ -21,6 +22,7 @@ Point point_in_top(stack<Point> & S){
 }
 
 // Función para intercambiar dos puntos
+// Complejidad en el tiempo: O(1)
 void swap(Point &p1, Point &p2){
     Point temp = p1;
     p1 = p2;
@@ -29,6 +31,7 @@ void swap(Point &p1, Point &p2){
 }
 
 // Función para devolver el cuadrado de la distancia entre p1 y p2
+// Complejidad en el tiempo: O(1)
 int square_distance(Point p1, Point p2){
     return (p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y);
 }
@@ -39,6 +42,7 @@ int square_distance(Point p1, Point p2){
 * 0, si p,q son colineales
 * 1, sentido horario
 * 2, sentido antihorario
+* Complejidad en el tiempo: O(1)
  */
  int orientation(Point p, Point q, Point r){
     int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
@@ -51,6 +55,7 @@ int square_distance(Point p1, Point p2){
  }
 
  // Función para ordenar una matriz de puntos con respecto al primer punto
+ // Complejidad en el tiempo: O(1) por comparación
  int compare(const void *vp1, const void *vp2){
     Point *p1 = (Point *)vp1;
     Point *p2 = (Point *)vp2;
@@ -64,6 +69,13 @@ int square_distance(Point p1, Point p2){
  }
 
  // Imprime el casco convexo de un set de n puntos
+ /**
+ * Complejidad en el tiempo:
+ * Encontrar el punto más bajo: O(n)
+ * Ordenar los puntos por angulo polar: O(n Log n)
+ * Escanear y hacer el casco convexo: O(n)
+ * Complejidad en el tiempo: O(n Log n)
+  */
  void convex_hull(Point points[], int n){
 
      // Se encuentra el punto más bajo
@@ -83,7 +95,7 @@ int square_distance(Point p1, Point p2){
      swap(points[0], points[min]);
 
      /**
-     * Se sortean n-1 puntos con respecto a la primera posición. Un punto p1 viene antes de p2 en la salida sorteada si p2 tiene un
+     * Se ordenan n-1 puntos con respecto a la primera posición. Un punto p1 viene antes de p2 en la salida ordenada si p2 tiene un
      * angulo polar más grande (en dirección sentido antihorario) que p1.
       */
     p0 = points[0];
@@ -137,6 +149,7 @@ int square_distance(Point p1, Point p2){
  }
 
 // Función main para echar a andar el algoritmo de Graham's Scan
+// Complejidad en el tiempo: O(n Log n) por el ordenamiento de los puntos
  int main(){
     int n;
     cout << "Dame el número de n puntos (vértices): ";
